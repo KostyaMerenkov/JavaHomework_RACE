@@ -24,20 +24,20 @@ public class Car implements Runnable {
             System.out.println(this.name + " готовится");
             Thread.sleep(500 + (int)(Math.random() * 800));
             System.out.println(this.name + " готов");
-            Main.ready_cdl.countDown();
-            Main.ready_cdl.await();
+             Main.ready_cdl.countDown();
+             Main.ready_cdl.await();
 
             for (int i = 0; i < race.getStages().size(); i++) {
                 race.getStages().get(i).go(this);
             }
 
-            Main.lock.lock();
-            if(Main.win_cdl.getCount() > 0) {
-                Main.win_cdl.countDown();
-                System.out.println("WINNER IS " + this.name);
-            }
-            Main.lock.unlock();
-            Main.finish_cdl.countDown();
+             Main.lock.lock();
+             if(Main.win_cdl.getCount() > 0) {
+                 Main.win_cdl.countDown();
+                 System.out.println("WINNER IS " + this.name);
+             }
+             Main.lock.unlock();
+             Main.finish_cdl.countDown();
 
         } catch (Exception e) {
             e.printStackTrace();
